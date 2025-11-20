@@ -1,3 +1,6 @@
+import { motion } from 'framer-motion';
+import { Reveal, ParallaxScroll } from './Parallax';
+
 export default function Features() {
   const items = [
     {
@@ -30,24 +33,28 @@ export default function Features() {
   ];
 
   return (
-    <section id="value" className="relative py-24 sm:py-28">
-      <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12),transparent_60%)]" />
+    <section id="value" className="relative py-24 sm:py-28 overflow-hidden">
+      <ParallaxScroll speed={0.08} className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12),transparent_60%)]" />
       <div className="relative z-10 mx-auto max-w-7xl px-6">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-semibold text-white sm:text-4xl">What we do</h2>
-          <p className="mt-2 text-white/70">Design and operate content systems that compound audience and revenue for brands.</p>
-        </div>
+        <Reveal>
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-semibold text-white sm:text-4xl">What we do</h2>
+            <p className="mt-2 text-white/70">Design and operate content systems that compound audience and revenue for brands.</p>
+          </div>
+        </Reveal>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((it) => (
-            <div key={it.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md hover:bg-white/[0.06] transition">
-              <h3 className="text-lg font-semibold text-white">{it.title}</h3>
-              <p className="mt-1 text-sm text-white/70">{it.subtitle}</p>
-              <ul className="mt-4 space-y-2 text-sm text-white/80 list-disc list-inside">
-                {it.points.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
+          {items.map((it, idx) => (
+            <Reveal key={it.title} delay={idx * 0.1}>
+              <motion.div whileHover={{ y: -6 }} transition={{ type: 'spring', stiffness: 200, damping: 18 }} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md hover:bg-white/[0.06] transition">
+                <h3 className="text-lg font-semibold text-white">{it.title}</h3>
+                <p className="mt-1 text-sm text-white/70">{it.subtitle}</p>
+                <ul className="mt-4 space-y-2 text-sm text-white/80 list-disc list-inside">
+                  {it.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
